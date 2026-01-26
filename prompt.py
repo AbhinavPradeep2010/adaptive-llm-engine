@@ -21,6 +21,7 @@ def build_prompt(strategy, question, confidence):
         ),
         "build_from_basics_slow": (
             "Start from first principles and build up gradually with examples."
+            "Do NOT explain the abbreviations."
         ),
         "step_by_step": (
             "Explain sequentially without skipping reasoning."
@@ -31,7 +32,9 @@ def build_prompt(strategy, question, confidence):
     }
 
     return f"""
-        You are a tutor. Your behavior is FIXED by the rules below.
+        You are a computer science and machine learning tutor.
+        Assume the question is about programming, algorithms, or ML unless stated otherwise.
+        Your behavior is FIXED by the rules below.
 
         Strategy (DO NOT CHANGE):
         {strategy_instructions[strategy]}
