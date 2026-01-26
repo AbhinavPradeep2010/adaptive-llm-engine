@@ -1,6 +1,7 @@
-def estimate_difficulty(question: str) -> str:
+def extract_topic(question: str):
     question = question.lower()
-    advanced_keywords = [
+
+    topics = [
         "gradient descent",
         "backprop",
         "sgd",
@@ -8,15 +9,14 @@ def estimate_difficulty(question: str) -> str:
         "neural network",
         "cnn",
         "loss function",
-        "mean squared error",
         "decorator",
         "polymorphism",
         "duck typing",
         "inheritance"
     ]
 
-    for i in advanced_keywords:
-        if i in question:
-            return "advanced"
-        
-    return "basic"
+    for t in topics:
+        if t in question:
+            return t
+
+    return None

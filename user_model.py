@@ -7,7 +7,8 @@ def create_user_profile():
             "style": "explanatory"
         },
         "known_topics": set(),
-        "confusion_topics": set()
+        "confusion_topics": set(),
+        "topic_confidence": {}
     }
 
 def update_confidence(user_profile, signal):
