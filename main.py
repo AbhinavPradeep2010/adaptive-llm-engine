@@ -2,6 +2,8 @@ from user_model import create_user_profile, update_confidence
 from intent import detect_intent
 from difficulty import estimate_difficulty
 from strategy import select_strategy
+from responses import generate_response
+
 
 user = create_user_profile()
 
@@ -24,6 +26,10 @@ while True:
     print("Difficulty:", difficulty)
     print("Strategy:", strategy)
     print("User confidence:", user["confidence"])
+
+    response = generate_response(strategy, question)
+    print("\n--- ALAE Response ---")
+    print(response)
 
 
     feedback = input("\nDid you find the answer helpful? (y/n): ").strip().lower()
