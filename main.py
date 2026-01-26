@@ -29,12 +29,16 @@ while True:
     print("Strategy:", strategy)
     print("User confidence:", user["confidence"])
     print("User level:", user["level"])
-    print("Confision topics:", user["confusion_topics"])
+    print("Confusion topics:", user["confusion_topics"])
     print("Known topics:", user["known_topics"])
+    print("Topic confidence:", user["topic_confidence"])
 
 
     prompt = build_prompt(strategy, question, user["confidence"])
     answer = render_answer(prompt)
+
+    print("\n--- Generated Prompt ---")
+    print(prompt)
 
     print("\n--- ALAE Answer ---")
     print(answer)
@@ -45,13 +49,23 @@ while True:
 
     if feedback == "y":
         update_confidence(user, "understood")
+
         if topic:
+            current = user["topic_confidence"].get(topic, 0.5)
+            user["topic_confidence"][topic] = min(1.0, current + 0.1)
+            user["topic_confidence"][topic] = round(user["topic_confidence"][topic], 2)
+
             user["known_topics"].add(topic)
             user["confusion_topics"].discard(topic)
 
     elif feedback == "n":
         update_confidence(user, "confused")
+
         if topic:
+            current = user["topic_confidence"].get(topic, 0.5)
+            user["topic_confidence"][topic] = max(0.0, current - 0.1)
+            user["topic_confidence"][topic] = round(user["topic_confidence"][topic], 2)
+
             user["confusion_topics"].add(topic)
             user["known_topics"].discard(topic)
 
